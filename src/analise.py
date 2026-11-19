@@ -4,6 +4,7 @@ from pathlib import Path
 import pandas as pd
 import plotly.express as px
 import plotly.graph_objects as go
+from plotly.subplots import make_subplots
 from scipy import stats
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -86,7 +87,6 @@ def rq3_figura(mensal):
     est = mensal[mensal.ano.between(2014, 2020)].groupby(["ano", "mes"])[list(IND_RQ3)].mean().reset_index()
     base = est[est.ano <= 2019].groupby("mes")[list(IND_RQ3)].agg(["mean", "min", "max"])
     meses = ["jan", "fev", "mar", "abr", "mai", "jun", "jul", "ago", "set", "out", "nov", "dez"]
-    from plotly.subplots import make_subplots
     fig = make_subplots(rows=1, cols=3, subplot_titles=list(IND_RQ3.values()))
     for i, (c, nome) in enumerate(IND_RQ3.items(), start=1):
         fig.add_trace(go.Scatter(x=meses + meses[::-1], y=list(base[(c, "max")]) + list(base[(c, "min")])[::-1],
@@ -122,7 +122,8 @@ def gerar_tudo():
     figs = {"rq1": rq1_figura(t1), "rq2": rq2_figura(base2), "rq3": rq3_figura(mensal),
             "serie": serie_longa_figura(mensal)}
     for k, f in figs.items():
-        f.write_html(ASSETS / f"fig_{k}.html", include_plotlyjs="cdn")
+        # div_id fixo: sem ele o Plotly gera um id aleatório e o HTML muda a cada execução.
+        f.write_html(ASSETS / f"fig_{k}.html", include_plotlyjs="cdn", div_id=f"fig_{k}")
     return dict(anual=anual, mensal=mensal, t1=t1, base2=base2, c2=c2, t3=t3, figs=figs)
 
 

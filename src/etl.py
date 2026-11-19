@@ -16,6 +16,8 @@ ANUAL_RAW = RAW / "isp_anual_municipio_2014_2020.csv"
 MENSAL_RAW = RAW / "isp_mensal_municipio_2014_2026.csv"
 ID_COLS = ["fmun_cod", "fmun", "ano", "mes", "mes_ano", "regiao", "fase"]
 REGIOES = ["Capital", "Baixada Fluminense", "Grande Niterói", "Interior"]
+# mtime=0 zera o carimbo de data/hora do cabeçalho gzip: mesma entrada -> mesmos bytes.
+GZIP = {"method": "gzip", "mtime": 0}
 
 logging.basicConfig(level=logging.INFO, format="%(levelname)s | %(message)s")
 log = logging.getLogger("etl")
@@ -39,12 +41,12 @@ def indicadores(df: pd.DataFrame) -> list[str]:
 
 
 def tratar_anual(df: pd.DataFrame) -> pd.DataFrame:
-    ind = indicadores(df)
-    df["sem_dados"] = df[ind].isna().all(axis=1)
-    mun_sem = df.loc[df["sem_dados"], "fmun"].unique()
+    sem_dados = df[indicadores(df)].isna().all(axis=1)
+    mun_sem = sorted(df.loc[sem_dados, "fmun"].unique())
+    exemplos = ", ".join(mun_sem[:5]) + (" ..." if len(mun_sem) > 5 else "")
     log.info("Anual: %d linhas; %d municípios sem nenhum dado publicado (descartados): %s",
-             len(df), len(mun_sem), ", ".join(sorted(mun_sem)[:5]) + " ...")
-    out = df.loc[~df["sem_dados"]].drop(columns=["sem_dados"]).copy()
+             len(df), len(mun_sem), exemplos)
+    out = df.loc[~sem_dados].copy()
     # Métrica derivada: participação da polícia na letalidade violenta (%)
     out["pct_interv_policial"] = (100 * out["hom_por_interv_policial"]
                                   / out["letalidade_violenta"].where(out["letalidade_violenta"] > 0))
@@ -52,6 +54,7 @@ def tratar_anual(df: pd.DataFrame) -> pd.DataFrame:
 
 
 def tratar_mensal(df: pd.DataFrame) -> pd.DataFrame:
+    df = df.copy()
     df["data"] = pd.to_datetime(dict(year=df["ano"], month=df["mes"], day=1))
     df["periodo"] = pd.cut(df["data"], bins=pd.to_datetime(["2013-12-31", "2020-02-29", "2021-12-31", "2100-01-01"]),
                            labels=["pré-pandemia", "pandemia (mar/20–dez/21)", "pós-pandemia"])
@@ -65,8 +68,8 @@ def run() -> tuple[pd.DataFrame, pd.DataFrame]:
     PROC.mkdir(parents=True, exist_ok=True)
     anual = tratar_anual(ler_csv_isp(ANUAL_RAW))
     mensal = tratar_mensal(ler_csv_isp(MENSAL_RAW))
-    anual.to_csv(PROC / "isp_anual_tratado.csv.gz", index=False, compression="gzip")
-    mensal.to_csv(PROC / "isp_mensal_tratado.csv.gz", index=False, compression="gzip")
+    anual.to_csv(PROC / "isp_anual_tratado.csv.gz", index=False, compression=GZIP)
+    mensal.to_csv(PROC / "isp_mensal_tratado.csv.gz", index=False, compression=GZIP)
     log.info("Arquivos salvos em %s", PROC)
     return anual, mensal
 
