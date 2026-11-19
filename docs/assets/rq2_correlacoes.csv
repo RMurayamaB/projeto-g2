@@ -1,0 +1,5 @@
+grupo,n,pearson_r,p_pearson,spearman_rho,p_spearman
+Todos,38,0.325,0.0468,0.567,0.0002
+Baixada Fluminense,13,-0.328,0.2738,-0.22,0.4706
+Grande Niterói,3,0.336,0.782,0.5,0.6667
+Interior,21,0.652,0.0014,0.773,0.0

@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Violência letal, roubos de rua e pandemia no Estado do Rio de Janeiro (2014–2020)</title>
+<meta name="description" content="Análise reprodutível dos indicadores do ISP-RJ: letalidade violenta, intervenção policial, roubos de rua e efeito da pandemia.">
+<meta name="keywords" content="segurança pública, letalidade violenta, intervenção policial, roubos de rua, COVID-19, Rio de Janeiro">
+<style>
+:root{--fg:#1d1d1f;--muted:#5a5a5f;--accent:#1f4e79;--bg:#fff;--soft:#f4f6f9;--border:#dde2ea}
+*{box-sizing:border-box}
+body{margin:0;font-family:Georgia,"Times New Roman",serif;color:var(--fg);background:var(--bg);line-height:1.7;font-size:18px}
+main{max-width:860px;margin:0 auto;padding:2rem 1.25rem 4rem}
+header{border-bottom:3px solid var(--accent);padding-bottom:1.5rem;margin-bottom:2rem}
+h1{font-size:2rem;line-height:1.25;margin:.2rem 0 1rem}
+h2{color:var(--accent);font-size:1.45rem;margin-top:2.6rem;border-bottom:1px solid var(--border);padding-bottom:.3rem}
+h3{font-size:1.15rem;margin-top:1.8rem}
+.authors{font-size:1.05rem}.affil{color:var(--muted);font-size:.95rem}
+.badges{margin-top:1rem;display:flex;flex-wrap:wrap;gap:.4rem;align-items:center}
+.btn{display:inline-block;background:var(--accent);color:#fff;text-decoration:none;padding:.45rem 1rem;border-radius:4px;font-family:system-ui,sans-serif;font-size:.9rem}
+.abstract{background:var(--soft);border-left:4px solid var(--accent);padding:1rem 1.25rem;border-radius:4px}
+.kw{font-size:.95rem;color:var(--muted)}
+.rq{background:var(--soft);padding:.8rem 1.1rem;border-radius:4px}
+figure{margin:1.8rem 0}
+iframe{width:100%;border:1px solid var(--border);border-radius:4px}
+figcaption{font-size:.9rem;color:var(--muted);margin-top:.4rem}
+table{border-collapse:collapse;width:100%;font-size:.88rem;font-family:system-ui,sans-serif;margin:1rem 0}
+th,td{border:1px solid var(--border);padding:.35rem .5rem;text-align:right}
+th:first-child,td:first-child{text-align:left}
+thead th{background:var(--accent);color:#fff}
+.tbl{overflow-x:auto}
+pre{background:#0f1720;color:#e6edf3;padding:1rem;border-radius:6px;overflow-x:auto;font-size:.82rem;line-height:1.5}
+code{font-family:Consolas,Menlo,monospace}
+.fair{background:#eef6ee;border:1px solid #bfdcbf;padding:1rem 1.25rem;border-radius:6px}
+.refs li{margin-bottom:.6rem;font-size:.95rem}
+footer{margin-top:3rem;font-size:.85rem;color:var(--muted);border-top:1px solid var(--border);padding-top:1rem}
+@media (max-width:600px){body{font-size:16px}h1{font-size:1.5rem}}
+</style>
+</head>
+<body>
+<main>
+
+<header>
+  <div class="affil">Artigo – Projeto Final de Disciplina</div>
+  <h1>Violência letal, roubos de rua e pandemia no Estado do Rio de Janeiro: uma análise reprodutível das séries do ISP-RJ (2014–2020)</h1>
+  <div class="authors">[Erick Ribeiro Graciano] · [Rafael Murayama Barcelos]</div>
+  <div class="affil">[UniLaSalle] — Bacharelado em Sistemas de Informação, 6º período<br>
+  Disciplina: Linguagem de Programação (Análise e Visualização de Dados com Python) — [2 semestre/26]<br>
+  Professor orientador: [Alexandre Neves Louzada]</div>
+  <div class="badges">
+    <img alt="Licença MIT" src="https://img.shields.io/badge/código-MIT-blue.svg">
+    <img alt="CC BY 4.0" src="https://img.shields.io/badge/dados%20e%20texto-CC%20BY%204.0-lightgrey.svg">
+    <img alt="Python 3.12" src="https://img.shields.io/badge/python-3.12-informational">
+    <img alt="FAIR" src="https://img.shields.io/badge/FAIR-compliant-success">
+    <a class="btn" href="https://github.com/RMurayamaB/projeto-g2">Repositório no GitHub ↗</a>
+  </div>
+</header>
+
+<section class="abstract">
+<h2 style="margin-top:0;border:0">Resumo</h2>
+<p>A segurança pública é um dos temas centrais do debate social no Estado do Rio de Janeiro. Este estudo usa as séries históricas de indicadores criminais publicadas pelo Instituto de Segurança Pública (ISP-RJ), em taxas por 100 mil habitantes, para responder a três perguntas: como evoluíram a letalidade violenta e as mortes por intervenção de agente do Estado em cada região entre 2014 e 2020; se municípios com mais roubos de rua também têm maior letalidade; e qual foi o efeito da pandemia de 2020 sobre roubos, furtos e letalidade. Construímos um pipeline determinístico em Python (pandas, SciPy e Plotly) que trata a codificação, os separadores e os valores ausentes, e documentamos o descarte de 54 municípios sem dados publicados na série anual. Os resultados mostram que a mediana municipal da participação das intervenções policiais na letalidade violenta passou de 2,3% em 2014 para 17,8% em 2020, com a Baixada Fluminense e a Grande Niterói nos patamares mais altos. A associação entre roubos de rua e letalidade é positiva e moderada no conjunto dos municípios (ρ de Spearman = 0,57), mas não é significativa na Baixada Fluminense. Em 2020, os roubos de rua caíram até 65% em relação à média histórica do mesmo mês, enquanto a letalidade violenta oscilou dentro da faixa histórica. Esses achados indicam que a violência letal tem dinâmica própria e menos sensível à circulação de pessoas que a dos crimes patrimoniais.</p>
+<p class="kw"><strong>Palavras-chave:</strong> segurança pública; letalidade violenta; intervenção policial; roubos de rua; COVID-19; Rio de Janeiro.</p>
+</section>
+
+<h2>1. Introdução</h2>
+<p>O Estado do Rio de Janeiro tem histórico de altas taxas de violência letal e de crimes patrimoniais, distribuídas de forma desigual entre a capital, a região metropolitana e o interior. Desde 2014, o ISP-RJ publica séries municipais padronizadas em taxas por 100 mil habitantes, o que permite comparar territórios de tamanhos diferentes. Duas mudanças marcaram o período: o crescimento das mortes decorrentes de intervenção de agentes do Estado, que entraram no centro do debate público, e o choque da pandemia de COVID-19 em 2020, que alterou de forma abrupta a circulação de pessoas, condição relevante para os crimes de rua.</p>
+<p>Este trabalho tem por objetivo produzir evidência descritiva e reprodutível sobre esses fenômenos, seguindo os princípios FAIR de ciência aberta. As perguntas de pesquisa são:</p>
+<div class="rq">
+<p><strong>RQ1.</strong> Como a letalidade violenta e as mortes por intervenção policial evoluíram entre 2014 e 2020 em cada região do estado?</p>
+<p><strong>RQ2.</strong> Municípios com maiores taxas de roubos de rua apresentam também maior letalidade violenta?</p>
+<p style="margin-bottom:0"><strong>RQ3.</strong> Qual foi o efeito da pandemia de 2020 sobre roubos, furtos e letalidade violenta, em comparação com o padrão sazonal de 2014–2019?</p>
+</div>
+
+<h2>2. Metodologia e pipeline de dados</h2>
+<h3>2.1 Fonte e granularidade</h3>
+<p>Foram usados dois arquivos de dados abertos do ISP-RJ: (i) a <em>série histórica anual por município</em> (2014–2020; 92 municípios × 7 anos = 644 linhas; 53 indicadores) e (ii) a <em>série histórica mensal por município</em> (jan/2014 a jul/2026; 13.892 linhas; 54 indicadores). Todas as medidas são taxas de registros de ocorrência por 100 mil habitantes. Os municípios estão agrupados em quatro regiões: Capital, Baixada Fluminense, Grande Niterói e Interior.</p>
+
+<h3>2.2 Tratamento</h3>
+<ul>
+<li><strong>Parsing:</strong> os arquivos estão em <code>latin-1</code>, com separador <code>;</code> e decimal com vírgula. O símbolo <code>-</code> indica dado não publicado e é convertido em <code>NaN</code>.</li>
+<li><strong>Tipos:</strong> os indicadores são convertidos para <code>float64</code>, o código IBGE para <code>int64</code> e a região para uma categoria ordenada. Na série mensal, criamos a coluna <code>data</code> (datetime) e a coluna <code>periodo</code> (pré-pandemia, pandemia e pós-pandemia).</li>
+<li><strong>Descarte rastreável:</strong> na série anual, 54 municípios do Interior têm todos os indicadores como <code>-</code> em todos os anos. Eles são descartados e registrados em log, restando 38 municípios (Capital 1, Baixada 13, Grande Niterói 3, Interior 21). A série mensal não tem lacunas nos indicadores analisados.</li>
+<li><strong>Métrica derivada:</strong> <code>pct_interv_policial</code> = 100 × morte por intervenção de agente do Estado ÷ letalidade violenta.</li>
+<li><strong>Agregação:</strong> as médias regionais são médias não ponderadas das taxas municipais, porque os arquivos não trazem a população.</li>
+<li><strong>Persistência:</strong> os dados tratados são gravados em <code>data/processed/*.csv.gz</code> (UTF-8). Os arquivos brutos permanecem intactos.</li>
+</ul>
+<pre><code>def ler_csv_isp(path):
+    df = pd.read_csv(path, sep=";", encoding="latin-1", decimal=",",
+                     na_values=["-", ""], low_memory=False)
+    num = [c for c in df.columns if c not in ID_COLS]
+    df[num] = df[num].apply(pd.to_numeric, errors="coerce").astype("float64")
+    df["regiao"] = pd.Categorical(df["regiao"].str.strip(), categories=REGIOES)
+    return df
+
+def tratar_anual(df):
+    ind = indicadores(df)
+    df["sem_dados"] = df[ind].isna().all(axis=1)          # municípios sem publicação
+    log.info("Descartados: %d municípios", df.loc[df.sem_dados, "fmun"].nunique())
+    out = df.loc[~df.sem_dados].drop(columns="sem_dados")
+    out["pct_interv_policial"] = 100 * out.hom_por_interv_policial / \
+        out.letalidade_violenta.where(out.letalidade_violenta &gt; 0)
+    return out</code></pre>
+
+<h3>2.3 Métodos analíticos</h3>
+<p><strong>RQ1:</strong> séries anuais das médias regionais. <strong>RQ2:</strong> média 2014–2020 de cada município, com correlações de Pearson (linear) e Spearman (monotônica, robusta a outliers), no conjunto e por região. A Capital, que tem n = 1, fica de fora da análise por região. <strong>RQ3:</strong> média estadual mensal das taxas municipais (92 municípios). Cada mês de 2020 é comparado à média do mesmo mês em 2014–2019, o que controla a sazonalidade, e o resultado é expresso como desvio percentual.</p>
+
+<h2>3. Resultados e discussão</h2>
+
+<h3>3.1 RQ1 – Letalidade violenta e intervenção policial por região</h3>
+<figure>
+<iframe src="assets/fig_rq1.html" height="450" loading="lazy" title="Figura 1"></iframe>
+<figcaption><strong>Figura 1.</strong> Média das taxas municipais de letalidade violenta e de morte por intervenção de agente do Estado, por região, 2014–2020 (por 100 mil hab.). Fonte: ISP-RJ; elaboração própria.</figcaption>
+</figure>
+<div class="tbl"><table>
+<thead><tr><th>Região</th><th>Letalidade 2014</th><th>Letalidade 2020</th><th>Interv. policial 2014</th><th>Interv. policial 2019 (pico)</th><th>Interv. policial 2020</th></tr></thead>
+<tbody>
+<tr><td>Baixada Fluminense</td><td>57,0</td><td>36,8</td><td>3,7</td><td>14,4</td><td>10,7</td></tr>
+<tr><td>Grande Niterói</td><td>34,8</td><td>33,6</td><td>4,4</td><td>16,1</td><td>9,8</td></tr>
+<tr><td>Capital</td><td>24,1</td><td>21,0</td><td>3,8</td><td>10,8</td><td>6,2</td></tr>
+<tr><td>Interior</td><td>28,3</td><td>30,3</td><td>0,9</td><td>4,9</td><td>4,2</td></tr>
+</tbody></table></div>
+<p>A Baixada Fluminense tem, em todo o período, a maior letalidade violenta média, embora com queda expressiva entre 2016 e 2020. O dado mais marcante é o crescimento das mortes por intervenção de agentes do Estado em todas as regiões, com pico em 2018–2019: na Baixada, a taxa quase quadruplicou, e na Grande Niterói passou de 4,4 para 16,1. Como a letalidade total caiu ou ficou estável, aumentou o peso das intervenções policiais na composição das mortes. A mediana municipal de <code>pct_interv_policial</code> subiu de 2,3% (2014) para 13,7% (2018) e 17,8% (2020). Isso indica que parte da redução do CVLI (homicídios, latrocínios e lesões seguidas de morte) foi acompanhada de aumento das mortes causadas por agentes do Estado. A queda de 2020 coincide com a pandemia e com as restrições a operações policiais em comunidades no período, um fator externo que este estudo não modela.</p>
+
+<h3>3.2 RQ2 – Roubos de rua × letalidade violenta</h3>
+<figure>
+<iframe src="assets/fig_rq2.html" height="490" loading="lazy" title="Figura 2"></iframe>
+<figcaption><strong>Figura 2.</strong> Média 2014–2020 de roubos de rua e de letalidade violenta por município (n = 38), com reta de regressão OLS do conjunto. Passe o cursor para ver o nome do município. Fonte: ISP-RJ; elaboração própria.</figcaption>
+</figure>
+<div class="tbl"><table>
+<thead><tr><th>Grupo</th><th>n</th><th>Pearson r</th><th>p</th><th>Spearman ρ</th><th>p</th></tr></thead>
+<tbody>
+<tr><td>Todos</td><td>38</td><td>0,325</td><td>0,047</td><td>0,567</td><td>&lt;0,001</td></tr>
+<tr><td>Interior</td><td>21</td><td>0,652</td><td>0,001</td><td>0,773</td><td>&lt;0,001</td></tr>
+<tr><td>Baixada Fluminense</td><td>13</td><td>−0,328</td><td>0,274</td><td>−0,220</td><td>0,471</td></tr>
+<tr><td>Grande Niterói</td><td>3</td><td>0,336</td><td>0,782</td><td>0,500</td><td>0,667</td></tr>
+</tbody></table></div>
+<p>No conjunto dos municípios, a associação é positiva. O ρ de Spearman (0,57) é bem maior que o r de Pearson (0,33), o que sugere uma relação monotônica mas não linear, influenciada por municípios extremos, como Nilópolis e Mesquita (muitos roubos) e Queimados e Japeri (alta letalidade). O resultado mais interessante é a heterogeneidade regional. No Interior, a associação é forte e significativa: municípios mais urbanizados, como Cabo Frio, Macaé e Itaboraí, concentram as duas violências. Na Baixada Fluminense, a relação é nula ou levemente negativa. Ali, os municípios com mais letalidade (Queimados, Japeri) não são os que têm mais roubos de rua, o que sugere que a violência letal da Baixada está associada a outros fatores, como disputas territoriais armadas, e não ao volume de crimes patrimoniais. A correlação é ecológica e não implica causalidade.</p>
+
+<h3>3.3 RQ3 – O choque da pandemia em 2020</h3>
+<figure>
+<iframe src="assets/fig_rq3.html" height="440" loading="lazy" title="Figura 3"></iframe>
+<figcaption><strong>Figura 3.</strong> Taxa mensal média estadual em 2020 (vermelho) comparada à média (tracejado) e à faixa mín–máx (área) de 2014–2019. A área cinza marca mar–mai/2020. Fonte: ISP-RJ; elaboração própria.</figcaption>
+</figure>
+<div class="tbl"><table>
+<thead><tr><th>Mês de 2020</th><th>jan</th><th>fev</th><th>mar</th><th>abr</th><th>mai</th><th>jun</th><th>jul</th><th>ago</th><th>set</th><th>out</th><th>nov</th><th>dez</th></tr></thead>
+<tbody>
+<tr><td>Roubos de rua (%)</td><td>+10,5</td><td>+8,4</td><td>−33,9</td><td>−60,0</td><td>−65,0</td><td>−56,3</td><td>−43,9</td><td>−51,2</td><td>−42,1</td><td>−42,7</td><td>−44,4</td><td>−41,7</td></tr>
+<tr><td>Total de furtos (%)</td><td>−4,6</td><td>+7,7</td><td>−37,6</td><td>−60,3</td><td>−62,6</td><td>−58,7</td><td>−47,0</td><td>−43,0</td><td>−38,3</td><td>−41,6</td><td>−38,8</td><td>−40,0</td></tr>
+<tr><td>Letalidade violenta (%)</td><td>+15,7</td><td>−10,1</td><td>−3,0</td><td>+9,2</td><td>+1,8</td><td>−24,1</td><td>−18,3</td><td>−5,9</td><td>−4,6</td><td>−15,4</td><td>−5,1</td><td>−15,7</td></tr>
+</tbody></table></div>
+<p>Os crimes patrimoniais de rua tiveram uma ruptura nítida a partir de março de 2020: roubos de rua e furtos caíram cerca de 60% em abril e maio, o auge do distanciamento social, e não voltaram ao padrão histórico até dezembro (cerca de −40%). Esse comportamento é coerente com a teoria das atividades rotineiras (Cohen; Felson, 1979): com menos pessoas circulando, há menos encontros entre potenciais vítimas e ofensores. A letalidade violenta, por outro lado, não teve queda imediata. Em março e maio ficou próxima da média histórica e em abril chegou a ficar acima dela. As reduções aparecem só a partir de junho. Isso reforça o achado da RQ2: a violência letal responde a mecanismos diferentes dos que movem os crimes patrimoniais.</p>
+<figure>
+<iframe src="assets/fig_serie.html" height="400" loading="lazy" title="Figura 4"></iframe>
+<figcaption><strong>Figura 4.</strong> Média móvel de 12 meses da taxa mensal média estadual de roubos de rua e de letalidade violenta, 2014–2026. Fonte: ISP-RJ; elaboração própria.</figcaption>
+</figure>
+<p>A série longa mostra que os roubos de rua não retomaram o patamar anterior à pandemia: a soma anual das taxas mensais médias caiu de 200,7 (2019) para 59,2 (2025). A letalidade violenta recuou de forma mais gradual.</p>
+
+<h2>4. Conclusão</h2>
+<p>As três perguntas de pesquisa foram respondidas com um pipeline aberto e reprodutível. (RQ1) A letalidade violenta caiu ou ficou estável nas regiões metropolitanas, mas a parcela atribuída a intervenções de agentes do Estado cresceu muito, chegando a uma mediana municipal de 17,8% em 2020. (RQ2) Roubos de rua e letalidade estão positivamente associados no estado e fortemente associados no Interior, mas não na Baixada Fluminense. (RQ3) A pandemia reduziu de forma abrupta e persistente os crimes patrimoniais de rua, enquanto a letalidade se manteve próxima da faixa histórica nos primeiros meses.</p>
+<p><strong>Limitações:</strong> (i) os dados são registros administrativos, sujeitos a subnotificação, que pode ter variado durante a pandemia; (ii) 54 municípios sem publicação na série anual reduzem a cobertura do Interior em RQ1 e RQ2; (iii) as médias regionais não são ponderadas por população; (iv) as correlações são ecológicas e não causais.</p>
+<p><strong>Trabalhos futuros:</strong> incorporar a população (IBGE) para taxas regionais ponderadas; usar a série mensal até 2026 para estender RQ1 e RQ2; aplicar modelos de séries temporais interrompidas (ITS/SARIMA) para estimar o efeito da pandemia; e cruzar os dados com indicadores socioeconômicos municipais.</p>
+
+<h2>5. Disponibilidade dos dados e declaração FAIR</h2>
+<div class="fair">
+<p><strong>Findable:</strong> repositório público com README, palavras-chave, autoria e link para a fonte original (ISP-RJ).<br>
+<strong>Accessible:</strong> código e dados acessíveis sem autenticação; artigo publicado no GitHub Pages.<br>
+<strong>Interoperable:</strong> dados tratados em CSV UTF-8 comprimido (<code>.csv.gz</code>) e dicionário em <code>data/data_dictionary.md</code>.<br>
+<strong>Reusable:</strong> código sob licença MIT, dados processados e texto sob CC BY 4.0, dependências fixadas em <code>requirements.txt</code>.</p>
+<pre><code>git clone https://github.com/SEU-USUARIO/NOME-DO-REPO.git
+cd NOME-DO-REPO
+python -m venv .venv &amp;&amp; source .venv/bin/activate   # Windows: .venv\Scripts\activate
+pip install -r requirements.txt
+python -m src.etl        # gera data/processed/
+python -m src.analise    # gera docs/assets/ (figuras e tabelas)</code></pre>
+</div>
+
+<h2>6. Referências</h2>
+<ol class="refs">
+<li>COHEN, L. E.; FELSON, M. Social change and crime rate trends: a routine activity approach. <em>American Sociological Review</em>, v. 44, n. 4, p. 588–608, 1979.</li>
+<li>INSTITUTO DE SEGURANÇA PÚBLICA DO ESTADO DO RIO DE JANEIRO (ISP-RJ). <em>Dados abertos: séries históricas por município</em>. Rio de Janeiro: ISP, [s.d.]. Disponível em: https://www.ispdados.rj.gov.br/estatistica.html. Acesso em: [dd mmm. aaaa].</li>
+<li>McKINNEY, W. Data structures for statistical computing in Python. In: PYTHON IN SCIENCE CONFERENCE, 9., 2010. <em>Proceedings</em>. p. 56–61.</li>
+<li>PLOTLY TECHNOLOGIES INC. <em>Collaborative data science</em>. Montreal: Plotly, 2015. Disponível em: https://plot.ly.</li>
+<li>VIRTANEN, P. et al. SciPy 1.0: fundamental algorithms for scientific computing in Python. <em>Nature Methods</em>, v. 17, p. 261–272, 2020.</li>
+<li>WILKINSON, M. D. et al. The FAIR Guiding Principles for scientific data management and stewardship. <em>Scientific Data</em>, v. 3, 160018, 2016.</li>
+</ol>
+
+<footer>Texto e dados processados licenciados sob <a href="https://creativecommons.org/licenses/by/4.0/deed.pt-br">CC BY 4.0</a>; código sob licença MIT. Dados brutos: ISP-RJ.</footer>
+</main>
+</body>
+</html>

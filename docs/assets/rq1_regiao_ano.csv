@@ -1,0 +1,29 @@
+regiao,ano,letalidade_violenta,hom_por_interv_policial,cvli
+Baixada Fluminense,2014,57.03,3.71,53.32
+Baixada Fluminense,2015,48.36,2.98,45.38
+Baixada Fluminense,2016,61.72,3.94,57.78
+Baixada Fluminense,2017,57.47,7.93,49.54
+Baixada Fluminense,2018,55.98,14.55,41.43
+Baixada Fluminense,2019,43.99,14.42,29.56
+Baixada Fluminense,2020,36.76,10.74,26.02
+Capital,2014,24.05,3.83,20.22
+Capital,2015,24.12,4.74,19.38
+Capital,2016,29.37,7.12,22.25
+Capital,2017,32.68,8.08,24.6
+Capital,2018,29.71,8.34,21.36
+Capital,2019,28.47,10.81,17.67
+Capital,2020,21.04,6.15,14.89
+Grande Niterói,2014,34.81,4.39,30.42
+Grande Niterói,2015,32.63,6.69,25.94
+Grande Niterói,2016,38.1,8.07,30.03
+Grande Niterói,2017,40.89,7.81,33.08
+Grande Niterói,2018,42.51,11.04,31.47
+Grande Niterói,2019,44.13,16.11,28.01
+Grande Niterói,2020,33.62,9.79,23.83
+Interior,2014,28.33,0.92,27.41
+Interior,2015,24.78,1.21,23.57
+Interior,2016,33.36,1.76,31.6
+Interior,2017,33.98,2.23,31.75
+Interior,2018,37.15,4.07,33.08
+Interior,2019,32.42,4.89,27.53
+Interior,2020,30.27,4.16,26.12
