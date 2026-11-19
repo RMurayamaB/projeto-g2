@@ -3,12 +3,12 @@
 [![Licença: MIT](https://img.shields.io/badge/código-MIT-blue.svg)](LICENSE)
 [![Licença: CC BY 4.0](https://img.shields.io/badge/dados%20e%20texto-CC%20BY%204.0-lightgrey.svg)](https://creativecommons.org/licenses/by/4.0/deed.pt-br)
 ![Python](https://img.shields.io/badge/python-3.12-informational)
-[![Artigo](https://img.shields.io/badge/artigo-GitHub%20Pages-success)](https://SEU-USUARIO.github.io/NOME-DO-REPO/)
+[![Artigo](https://img.shields.io/badge/artigo-GitHub%20Pages-success)]([https://SEU-USUARIO.github.io/NOME-DO-REPO/](https://rmurayamab.github.io/projeto-g2/))
 
-**Autores:** [Nome 1], [Nome 2], [Nome 3]
-**Instituição:** [Instituição] — Bacharelado em Sistemas de Informação, 6º período
-**Disciplina:** Linguagem de Programação (Análise e Visualização de Dados com Python) — [semestre/ano]
-**Professor orientador:** [Nome completo]
+**Autores:** [Erick Ribeiro Graciano], [Rafael Murayama Barcelos]
+**Instituição:** [UniLaSalle] — Bacharelado em Sistemas de Informação, 6º período
+**Disciplina:** Linguagem de Programação (Análise e Visualização de Dados com Python) — [2 semestre/26]
+**Professor orientador:** [Alexandre Neves Louzada]
 
 ## Resumo
 Pipeline reprodutível em Python que trata as séries históricas anual e mensal de indicadores criminais
@@ -55,9 +55,5 @@ python -m src.analise            # gera docs/assets/ (figuras e tabelas)
 jupyter notebook notebooks/analise_exploratoria.ipynb
 ```
 No VS Code, selecione como kernel do notebook o mesmo ambiente Python em que as dependências foram instaladas. Se o Plotly ainda informar que `nbformat` está ausente, execute `python -m pip install -r requirements.txt` nesse ambiente e reinicie o kernel.
-
-## Publicação (GitHub Pages)
-*Settings → Pages → Source: Deploy from a branch → Branch `main`, pasta `/docs`.*
-
 ## Licenças
 Código: **MIT**. Dados processados e texto do artigo: **CC BY 4.0**. Dados brutos: ISP-RJ.
